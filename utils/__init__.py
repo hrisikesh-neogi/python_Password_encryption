@@ -17,10 +17,11 @@ def Generate_encryption_key():
         iterations=100000,
         backend=backend
     )
-    key = base64.urlsafe_b64encode(kdf.derive(b"my great password"))
+    env_key = os.environ.get("KEY")
+    key = base64.urlsafe_b64encode(kdf.derive(b"{}".format(env_key)))
 
     key = Fernet(key)
-    key = os.environ.get("KEY")
+    
     
     return key
     
