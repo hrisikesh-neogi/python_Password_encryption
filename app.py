@@ -2,7 +2,7 @@ from typing import Union
 from urllib import request
 import uvicorn
 import os
-import os
+import base64
 from utils import Generate_encryption_key
 
 
@@ -31,7 +31,7 @@ def encrypt_password(username: str, password: str):
 @app.get("/auth/decrypt")
 def decrypt_password(password: str):
     key = Generate_encryption_key()
-    decrypted_password = key.decrypt(password).decode()
+    decrypted_password = base64.decode(key.decrypt(password), encoding="ascii")
     return {"password": decrypted_password}
 
     
